@@ -6,6 +6,8 @@ import logger from './utils/logger'
 
 const app: express.Application = express()
 
+app.disable('x-powered-by');
+
 const PORT: number = Number(process.env.PORT);
 
 middlewares.forEach((middleware) => {
