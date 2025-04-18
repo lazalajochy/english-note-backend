@@ -1,10 +1,11 @@
+import  './config/env'
 import express from 'express'
 import { connectDB } from './database'
 import { middlewares } from './middlewares/middlewares'
 
 const app: express.Application = express()
 
-const PORT: number = 8000
+const PORT: number = Number(process.env.PORT);
 
 middlewares.forEach((middleware) => {
   (middleware instanceof express.Router) ? app.use('/api', middleware) : app.use(middleware)
