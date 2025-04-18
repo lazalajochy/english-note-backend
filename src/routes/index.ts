@@ -5,10 +5,10 @@ import path from 'path'
 const router = express.Router()
 
 const routesPath = __dirname
-fs.readdirSync(routesPath).forEach((file) => {
+fs.readdirSync(routesPath).forEach(async (file) => {
   if (file === 'index.ts' || !file.endsWith('.ts') && !file.endsWith('.js')) return
 
-  const route = require(path.join(routesPath, file)).default
+  const route = await import(path.join(routesPath, file)).then(module => module.default)
 
   if (route && route instanceof Router) {
     const routeName = `/${file.split('.')[0]}`
