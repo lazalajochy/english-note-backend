@@ -2,6 +2,7 @@ import  './config/env'
 import express from 'express'
 import { connectDB } from './database'
 import { middlewares } from './middlewares/middlewares'
+import logger from './utils/logger'
 
 const app: express.Application = express()
 
@@ -13,5 +14,5 @@ middlewares.forEach((middleware) => {
 
 connectDB()
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+  logger.info(`Server is running on http://localhost:${PORT}`)
 })
