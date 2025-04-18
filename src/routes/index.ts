@@ -1,6 +1,7 @@
 import express, { Router } from 'express'
 import fs from 'fs'
 import path from 'path'
+import logger from '../utils/logger'
 
 const router = express.Router()
 
@@ -16,7 +17,7 @@ fs.readdirSync(routesPath).forEach(async (file) => {
     router.use(routeName, route as Router)
   }
  } catch (error) {
-  console.error(`Error loading route ${file}:`, error)
+  logger.error(`Error loading route ${file}:`, error)
   throw error
  }
 })
