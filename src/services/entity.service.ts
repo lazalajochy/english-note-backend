@@ -16,11 +16,11 @@ export const findEntity = async (model: { findAll: () => Promise<any> }) => {
   }
 }
 
-export const findEntityByField = async (model: { findOne: (arg0: any) => Promise<any> }, field: string, value: any) => {
+export const findEntityByField = async (model: { find: (arg0: any) => Promise<any> }, field: string, value: any) => {
   try {
     const query: Record<string, any> = {};
     query[field] = value;
-    return await model.findOne(query);
+    return await model.find(query);
   } catch (error) {
     throw new Error(`Error finding entity by field ${field}`);
   }

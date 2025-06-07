@@ -7,7 +7,8 @@ import logger from '../utils/logger'
 
 export const words = async (req: Request, res: Response) => {
   try {
-    const words = await entityService.findEntity({ findAll: () => Word.find() })
+  const userId = req.params.userId || (req.user && (req.user as any).id)
+    const words = await entityService.findEntityByField(Word, 'userId', userId) 
     res.status(200).json({ data: words })
   } catch (error) {
     logger.error('Error fetching words:', error)

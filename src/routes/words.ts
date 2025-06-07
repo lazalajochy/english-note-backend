@@ -4,7 +4,7 @@ import { upload } from '../utils/util';
 
 const wordsRouter = Router()
 
-wordsRouter.get('/', words);
+wordsRouter.get('/:userId', words);
 wordsRouter.post('/', upload.single("image"), addWord)
 
 export default wordsRouter
