@@ -1,12 +1,20 @@
-import { db } from './config/conn'
-import logger from './utils/logger'
+import mongoose from "mongoose";
+import conn from "./config/conn";
+import logger from "./utils/logger";
 
-export const connectDB = async () => {
-  try {
-    await db.authenticate()
-    await db.sync({ alter: true })
-    logger.info('Database connected successfully!')
-  } catch (error) {
-    logger.error('Unable to connect to the database:', error)
-  }
+
+
+if (!conn.db.url) {
+    logger.error("Database URL is not defined in the configuration.");
+    throw new Error("Database URL is not defined in the configuration.");
 }
+mongoose.connect(conn.db.url);
+const connection = mongoose.connection;
+
+connection.once("open", () => {
+    logger.info("MongoDB database connection established successfully");
+});
+connection.on("error", (err) => {
+    logger.error("MongoDB connection error. Please make sure MongoDB is running: " + err);
+    process.exit(1);
+});

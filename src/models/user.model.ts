@@ -1,14 +1,9 @@
-import { db } from "../config/conn";
-import { DataTypes } from "sequelize";
+import mongoose from "mongoose";
 
-export const User = db.define("user",{
-    id:{
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    userId:{
-        type: DataTypes.STRING,
-        allowNull: false,
-    }
+const userSchema = new mongoose.Schema({
+    given_name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
 })
+
+const User = mongoose.model("User", userSchema);
+export default User;
